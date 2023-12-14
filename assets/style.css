@@ -122,12 +122,38 @@ header {
 /* Gestion des fleches du carrousel */
 #banner .arrow {
 	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+	width: 98%;
+	color: white;
+	font-size: 4rem;
+	padding-right: 0.7rem;
+	padding-left: 0.7rem;
+	cursor: pointer;
 }
 #banner .arrow_left {
-	left: 10px;
+	left: 0;
+	opacity: 0.4;
+	transition: all 0.3s ease;
 }
+
+#banner .arrow_left:hover {
+	transform: scale(1.1);
+	opacity: 1;
+	transition: all 0.3s ease;
+}
+
 #banner .arrow_right {
-	right: 10px;
+	right: 0;
+	opacity: 0.4;
+	transition: all 0.3s ease;
+}
+
+#banner .arrow_right:hover {
+	transform: scale(1.1);
+	opacity: 1;
+	transition: all 0.3s ease;
 }
 /* Gestion des points du carrousel */
 .dots {
