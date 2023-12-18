@@ -119,26 +119,37 @@ const slides = [
 		selectDots[index].classList.add("dot_selected");
 	}
 
-/*=============== INTERACTION AVEC LES FLECHES ===============*/
-	/* Fonctions permettant d'activer le défilement vers 
-	la droite et la gauche avec l'ajout des Event Listeners sur les flèches  */
+/*=============== INTERACTION AVEC LES FLÈCHES & AUTOMATISATION ===============*/
 	function slideRight() {
-		arrowRight.addEventListener("click", () => {
-			slide("right");
-		});
+		slide("right");
 	}
 
 	function slideLeft() {
-		arrowLeft.addEventListener("click", () => {
-			slide("left");
-		});
+		slide("left");
 	}
 
-/*=============== FONCTION PRINCIPALE ===============*/
-	function main() {
-		displayDots();
-		slideRight();
-		slideLeft();
+	/* Fonction permettant d'effectuer un défilement automatique vers la droite 
+	à intervalles régulière */
+	function autoSlide() {
+
+		/* setInterval permet d'appeler la fonction slideRight toutes les X millisecondes */
+		setInterval(() => {
+			slideRight();
+		}, 3000); /* 3000 millisecondes = 3 secondes */
 	}
 
-	main();	
+	/* Ajout des Event Listeners aux flèches pour un défilement manuel */
+	arrowRight.addEventListener("click", slideRight);
+	arrowLeft.addEventListener("click", slideLeft);
+
+	/* Ajoute un Event Listener pour arrêter le défilement automatique 
+	lorsqu'une interaction utilisateur est détectée */
+	dotsContainer.addEventListener("click", () => {
+		clearInterval(autoSlide);
+	});
+
+	/* Démarrage du défilement automatique */
+	autoSlide();
+
+	/* Affichage des bullet points du carrousel */
+	displayDots();
