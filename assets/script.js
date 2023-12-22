@@ -119,7 +119,9 @@ const slides = [
 		selectDots[index].classList.add("dot_selected");
 	}
 
-/*=============== INTERACTION AVEC LES FLÈCHES & AUTOMATISATION ===============*/
+/*=============== INTERACTION & AUTOMATISATION ===============*/
+	let autoSlideInterval;
+
 	function slideRight() {
 		slide("right");
 	}
@@ -131,9 +133,8 @@ const slides = [
 	/* Fonction permettant d'effectuer un défilement automatique vers la droite 
 	à intervalles régulière */
 	function autoSlide() {
-
 		/* setInterval permet d'appeler la fonction slideRight toutes les X millisecondes */
-		setInterval(() => {
+		autoSlideInterval = setInterval(() => {
 			slideRight();
 		}, 3000); /* 3000 millisecondes = 3 secondes */
 	}
@@ -145,8 +146,21 @@ const slides = [
 	/* Ajoute un Event Listener pour arrêter le défilement automatique 
 	lorsqu'une interaction utilisateur est détectée */
 	dotsContainer.addEventListener("click", () => {
-		clearInterval(autoSlide);
+		clearInterval(autoSlideInterval);
+		autoSlide();
 	});
+
+	/* Fonction utilisée pour précharger les images du carrousel. */
+	function preloadImages() {
+		for (let i = 0; i < slides.length; i++) {
+			const imageObj = new Image();
+			imageObj.src = "./assets/images/slideshow/" + slides[i].image;
+    }
+}
+
+/*=============== APPEL DE FONCTIONS ===============*/
+	/* Démarrage du préchargement d'images */
+	preloadImages();
 
 	/* Démarrage du défilement automatique */
 	autoSlide();
